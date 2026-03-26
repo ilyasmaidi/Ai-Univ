@@ -1,0 +1,20 @@
+{
+    "$schema": "https://www.schemastore.org/package.json",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "vite build",
+        "dev": "concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"npm run vite\" --names=\"server,queue,logs,vite\"",
+        "vite": "vite"
+    },
+    "devDependencies": {
+        "@tailwindcss/vite": "^4.0.0",
+        "autoprefixer": "^10.4.27",
+        "axios": "^1.11.0",
+        "concurrently": "^9.2.1",
+        "laravel-vite-plugin": "^2.1.0",
+        "postcss": "^8.5.8",
+        "tailwindcss": "^4.2.2",
+        "vite": "^7.3.1"
+    }
+}
