@@ -7,11 +7,18 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return true; // للسماح لجميع المستخدمين بالوصول للوحة التحكم حالياً
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -22,7 +29,17 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'university',
+        'faculty',
     ];
+
+    /**
+     * Get the researches for the user.
+     */
+    public function researches()
+    {
+        return $this->hasMany(Research::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
